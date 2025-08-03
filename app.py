@@ -14,7 +14,7 @@ st.set_page_config(page_title="TLS'UNAH - Traductor de Lenguaje de Señas", layo
 @st.cache_resource
 def load_model():
     try:
-        modelo = tf.keras.models.load_model("modelo_mobilenetv21.keras")
+        modelo = tf.keras.models.load_model("modelo_mobilenetv21.h5")  # Cambiado a .h5
         return modelo
     except Exception as e:
         st.error(f"Error al cargar el modelo: {e}")
