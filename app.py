@@ -14,10 +14,24 @@ st.set_page_config(page_title="TLS'UNAH - Traductor de Lenguaje de Señas", layo
 @st.cache_resource
 def load_model():
     try:
-        modelo = tf.keras.models.load_model("modelo_mobilenetv21.h5")  # Cambiado a .h5
+        # Solución especial para el error de InputLayer
+        custom_objects = {
+            'InputLayer': lambda **kwargs: tf.keras.layers.InputLayer(
+                input_shape=kwargs['batch_shape'][1:] if 'batch_shape' in kwargs else (224, 224, 3),
+                dtype=kwargs.get('dtype', 'float32'),
+                name=kwargs.get('name', None)
+            )
+        }
+        
+        modelo = tf.keras.models.load_model(
+            "modelo_mobilenetv21.h5",
+            custom_objects=custom_objects,
+            compile=False
+        )
         return modelo
     except Exception as e:
-        st.error(f"Error al cargar el modelo: {e}")
+        st.error(f"Error crítico: {str(e)}")
+        st.error("Versión TF: " + tf.__version__)
         st.stop()
 
 modelo = load_model()
