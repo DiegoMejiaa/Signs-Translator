@@ -1,6 +1,6 @@
 streamlit==1.32.2
 opencv-python-headless==4.9.0.80
-pillow==10.3.0  # Versión compatible con Python 3.13
-numpy==2.0.0
-tensorflow==2.16.1  # Versión más reciente que soporta Python 3.13
-h5py==3.11.0
+pillow==10.3.0
+numpy==1.26.4  # Versión compatible con streamlit 1.32.2
+tensorflow-cpu==2.15.0  # Versión estable para Python 3.11
+h5py==3.10.0
